@@ -1,0 +1,6 @@
+.vscode
+.idea
+.mypy_cache
+docker-stack.yml
+mongodb
+postgres
