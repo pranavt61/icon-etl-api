@@ -51,8 +51,6 @@ def create_kafka_job(topic_name):
         }}""".format(topic_name=topic_name)
 
     r = requests.post(url, headers=headers, data=data)
-    print(r)
-    print(r.text)
 
 def init_kafka():
     logging.basicConfig(level=logging.INFO)
@@ -60,6 +58,10 @@ def init_kafka():
 
     retry_count = 0
     while True:
+        if retry_count >= 120:
+            # if connect is still not up in 2 minutes, give up
+            logger.error("Kafka connect unreachable, failed to create sinks")
+            return
         try:
             r = requests.get("http://" + settings.KAFKA_CONNECT_URL)
             if r.status_code == 200:
