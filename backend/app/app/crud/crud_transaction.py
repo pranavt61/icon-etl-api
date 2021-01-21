@@ -1,8 +1,5 @@
 from app.db.session import MongoClient
 
-from app.db.aio_engine import MongoEngine
-from app.models import Block
-
 class CRUDTransaction():
     def get_by_hash(self, hash):
         tx = MongoClient["icon"]["transactions"]\
