@@ -7,7 +7,7 @@ from app import crud
 router = APIRouter()
 
 @router.get("/")
-def get_blocks_by_height() -> Any:
+def get_block_latest() -> Any:
     """
     Get latest block
     """
@@ -18,7 +18,7 @@ def get_blocks_by_height() -> Any:
 
 
 @router.get("/height/{height}")
-def get_blocks_by_height(
+def get_block_by_height(
     *,
     height: int,
 ) -> Any:

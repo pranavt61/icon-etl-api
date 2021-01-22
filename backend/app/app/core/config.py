@@ -86,5 +86,9 @@ class Settings(BaseSettings):
     class Config:
         case_sensitive = True
 
-
-settings = Settings()
+import os
+if os.getenv("ENV_FILE"):
+    print(os.environ["ENV_FILE"])
+    settings = Settings(_env_file=os.environ["ENV_FILE"])
+else:
+    settings = Settings()
