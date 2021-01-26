@@ -1,6 +1,6 @@
 import logging
 
-from app.db.init_db import init_kafka
+from app.kafka.init_kafka import init_kafka
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

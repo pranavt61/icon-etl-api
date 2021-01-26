@@ -1,5 +1,6 @@
 import requests
 import logging
+import time
 
 from app.core.config import settings
 
@@ -17,7 +18,7 @@ def create_kafka_job(topic_name):
             "tasks.max": "1",
             "database": "icon",
             "collection": "{topic_name}",
-            "key.converter": "io.confluent.connect.json.JsonSchemaConverter",
+            "key.converter": "org.apache.kafka.connect.storage.StringConverter",
             "key.converter.schema.registry.url": "http://schemaregistry:8081",
             "value.converter": "io.confluent.connect.json.JsonSchemaConverter",
             "value.converter.schema.registry.url": "http://schemaregistry:8081",
@@ -52,6 +53,8 @@ def init_kafka():
 
     # kafka connect is up
     # start setting up mongo sinks
+
+    logger.info("Creating kakfa connects")
 
     # mongo sinks
     create_kafka_job("blocks")

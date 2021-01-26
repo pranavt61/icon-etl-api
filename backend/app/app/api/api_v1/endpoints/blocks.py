@@ -1,6 +1,6 @@
+import asyncio
 from typing import Any
-
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException, WebSocket
 
 from app import crud
 
@@ -30,6 +30,7 @@ def get_block_by_height(
         raise HTTPException(status_code=404, detail="Block not found")
     return block
 
+
 @router.get("/hash/{hash}")
 def get_block_by_hash(
     *,
@@ -42,3 +43,11 @@ def get_block_by_hash(
     if not block:
         raise HTTPException(status_code=404, detail="Block not found")
     return block
+
+
+@router.websocket("/ws")
+async def websocket_blocks(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        await asyncio.sleep(1)
+        await websocket.send_text("HELLO")
